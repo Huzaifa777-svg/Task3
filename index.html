@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-4 md:p-6">
+
+    <!-- Main Container -->
+    <div class="flex flex-col md:flex-row gap-6 justify-center items-start">
+
+        <!-- Left Search Box -->
+        <div class="w-full md:w-80 bg-white shadow border rounded-lg p-5 flex-shrink-0">
+
+            <!-- Heading -->
+            <h2 class="w-full text-[20px] font-medium leading-tight mb-4">Search properties for sale</h2>
+
+            <!-- Sale / Rent Buttons -->
+            <div class="inline-flex bg-blue-100 rounded-full p-[2px] mb-6 w-full">
+                <button class="flex-1 px-5 py-2 bg-[#4C74B9] text-white rounded-full text-sm font-medium">Sale</button>
+                <button class="flex-1 px-5 py-2 text-[#4C74B9] rounded-full text-sm font-medium">Rent</button>
+            </div>
+
+            <!-- Property Type Dropdown -->
+            <div class="relative w-full mb-5">
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-2 bg-white cursor-pointer">
+                    <img src="Assest/images/maki_building-alt1.svg" class="w-5 h-5 mr-3" alt="Property Icon" />
+                    <span id="selectedOption" class="flex-1 text-gray-700 text-sm">Lands & Plots</span>
+                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+
+                <ul id="optionsList"
+                    class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg mt-1 hidden">
+                    <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Lands & Plots</li>
+                    <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Houses</li>
+                    <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Flats & Apartment</li>
+                    <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Shops, Offices, Commercial Space</li>
+                    <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Portions & Floors</li>
+                </ul>
+            </div>
+
+            <!-- Location -->
+            <div class="flex items-center justify-between border rounded-lg px-3 text-sm mb-5 h-[52px]">
+                <div class="flex items-center gap-2">
+                    <img src="Assest/images/material-symbols_search.svg" class="w-4 h-4" />
+                    <span>Select Location</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img src="Assest/images/tdesign_location.svg" class="w-4 h-4" />
+                    <span>Lahore</span>
+                </div>
+            </div>
+
+            <!-- Area Size -->
+            <div class="mb-5">
+                <div class="flex justify-between text-sm text-gray-700 mb-1">
+                    <span>Area size</span>
+                    <span class="flex items-center gap-1 cursor-pointer" onclick="toggleOptionalInput()">
+                        Marla
+                        <img src="Assest/images/Component.svg" class="w-4 h-4" />
+                    </span>
+                </div>
+
+                <div class="flex gap-2 relative">
+                    <input type="text" placeholder="Enter area size"
+                        class="w-full border border-gray-300 rounded-md h-10 px-3 focus:outline-none focus:ring-1 focus:ring-blue-500" />
+                    <ul id="optionalInput"
+                        class="absolute z-10 w-2/3 sm:w-1/2 bg-white border border-gray-300 rounded-lg mt-1 hidden right-0">
+                        <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Lands & Plots</li>
+                        <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Houses</li>
+                        <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Flats & Apartment</li>
+                        <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Shops, Offices, Commercial Space</li>
+                        <li class="px-3 py-2 hover:bg-gray-100 cursor-pointer">Portions & Floors</li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- Display Values -->
+            <div class="flex gap-4 mb-6">
+                <span id="minValueDisplay" class="px-4 py-2 bg-white border rounded shadow">Min: 500,000</span>
+                <span id="maxValueDisplay" class="px-4 py-2 bg-white border rounded shadow">Max: 10,000,000</span>
+            </div>
+
+            <!-- Range Slider -->
+            <div class="w-full max-w-xl relative h-10">
+                <!-- Track -->
+                <div class="absolute top-1/2 transform -translate-y-1/2 w-full h-1 bg-gray-300 rounded"></div>
+
+                <!-- Inputs (clickable area) -->
+                <input type="range" id="minRange" min="500000" max="10000000" step="500000" value="500000"
+                    class="absolute w-full h-6 bg-transparent appearance-none cursor-pointer z-20">
+                <input type="range" id="maxRange" min="500000" max="10000000" step="500000" value="10000000"
+                    class="absolute w-full h-6 bg-transparent appearance-none cursor-pointer z-20">
+            </div>
+            <!-- Search Button -->
+            <button
+                class="w-full bg-blue-900 text-white py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 mt-4">
+                <img src="Assest/images/material-symbols_search.svg" class="w-4 h-4" />
+                SEARCH
+            </button>
+        </div>
+
+        <!-- Right Browse Properties -->
+        <div class="w-full md:flex-1 bg-white shadow border rounded-lg p-5 mt-6 md:mt-0">
+
+            <h2 class="text-xl font-semibold mb-4">Browse properties</h2>
+
+            <!-- Tabs -->
+            <div id="buttons" class="flex gap-2 mb-5 flex-wrap">
+                <button class="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg text-sm"
+                    onclick="updateGrid('popular', this)">Popular</button>
+                <button class="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg text-sm"
+                    onclick="updateGrid('area', this)">Area Unit</button>
+                <button class="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg text-sm"
+                    onclick="updateGrid('categories', this)">Categories</button>
+                <button class="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg text-sm"
+                    onclick="updateGrid('cities', this)">Cities</button>
+                <button class="flex items-center gap-1 px-3 py-2 bg-gray-200 rounded-lg text-sm"
+                    onclick="updateGrid('price', this)">Price Ranges</button>
+            </div>
+
+            <!-- Price Ranges Grid -->
+            <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">Under 5 lakh
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">10 Crore
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">10-20 Lakh
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">20-30 Lakh
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">25-30 Lakh
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">3-5 Crore
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">1-1.5 Crore
+                </div>
+                <div class="border rounded-lg h-40 flex items-center justify-center text-lg font-semibold">30-50 Lakh
+                </div>
+            </div>
+
+            <script>
+                const data = {
+                    popular: ["Small House", "New House", "1 Bedroom Apartment", "2 Bedroom Apartment", "installment Apartment", "Furnish Apartment", "Corner Apartment", "Corner Plots"],
+                    area: ["3-Marla House", "5-Marla House", "7-Marla House", "8-Marla House", "10-Marla House", "15-Marla House", "1-Kanal ", "2-Kanal"],
+                    categories: ["House", "Residential Plots", "Commerical Plots", "Plot Files", "Shops", "Buildings", "Office", "Portion & Floors"],
+                    cities: ["Lahore", "Islamabad", "Karachi", "Multan", "Faisalabad", "Peshawar", "Sahiwal", "Jhelum"],
+                    price: ["Under 5 lakh", "10 Crore", "10-20 Lakh", "20-30 Lakh", "25-30 Lakh", "3-5 Crore", "1-1.5 Crore", "30-50 Lakh"]
+                };
+
+                function updateGrid(type, button) {
+                    // Update grid
+                    const grid = document.getElementById('grid');
+                    const values = data[type];
+                    const divs = grid.children;
+
+                    for (let i = 0; i < divs.length; i++) {
+                        divs[i].textContent = values[i] || ""; // fallback if fewer items
+                    }
+
+                    // Update button styles
+                    const buttons = document.querySelectorAll("#buttons button");
+                    buttons.forEach(btn => {
+                        btn.classList.remove("bg-blue-100", "text-blue-700");
+                        btn.classList.add("bg-gray-200", "text-black");
+                    });
+
+                    // Activate clicked button
+                    button.classList.add("bg-blue-100", "text-blue-700");
+                    button.classList.remove("bg-gray-200", "text-black");
+                }
+            </script>
+
+
+        </div>
+
+    </div>
+
+    </div>
+
+    <script>
+        // Dropdown
+        const selected = document.getElementById("selectedOption");
+        const optionsList = document.getElementById("optionsList");
+
+        selected.parentElement.addEventListener("click", () => optionsList.classList.toggle("hidden"));
+        optionsList.querySelectorAll("li").forEach(option => option.addEventListener("click", () => {
+            selected.textContent = option.textContent;
+            optionsList.classList.add("hidden");
+        }));
+        document.addEventListener("click", (e) => {
+            if (!selected.parentElement.contains(e.target)) optionsList.classList.add("hidden");
+        });
+
+        // Optional input toggle
+        function toggleOptionalInput() {
+            const input = document.getElementById('optionalInput');
+            input.classList.toggle('hidden');
+        }
+        const minRange = document.getElementById('minRange');
+        const maxRange = document.getElementById('maxRange');
+        const minValueDisplay = document.getElementById('minValueDisplay');
+        const maxValueDisplay = document.getElementById('maxValueDisplay');
+
+        // Update display values
+        function updateValues() {
+            // Ensure min does not go above max
+            if (parseInt(minRange.value) > parseInt(maxRange.value)) {
+                minRange.value = maxRange.value;
+            }
+            // Ensure max does not go below min
+            if (parseInt(maxRange.value) < parseInt(minRange.value)) {
+                maxRange.value = minRange.value;
+            }
+
+            // Update text
+            minValueDisplay.textContent = `Min: ${parseInt(minRange.value).toLocaleString()}`;
+            maxValueDisplay.textContent = `Max: ${parseInt(maxRange.value).toLocaleString()}`;
+        }
+
+        // Event listeners
+        minRange.addEventListener('input', updateValues);
+        maxRange.addEventListener('input', updateValues);
+
+        // Initialize
+        updateValues();
+    </script>
+
+
+
+
+</body>
+
+</html>
